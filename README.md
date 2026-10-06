@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Ebook Forge Banner" width="100%">
+</p>
+
 # 🛠️ Ebook Forge
 
 **Ebook Forge** is a robust, production-ready Bash script designed to automatically convert your e-books and documents into high-quality audiobooks (supporting **M4B** with native chapters and cover art, or lightweight **Opus** files) using Calibre, FFmpeg, and Edge-TTS.
@@ -16,24 +20,43 @@
 
 ---
 
-## Prerequisites
+## Prerequisites & Compatibility
 
-Ensure the following tools are installed on your system:
-* `bash`
-* `ffmpeg` & `ffprobe`
-* `calibre` (`ebook-convert`, `ebook-meta`)
-* `python3` & `edge-tts`
-* `zenity` (for graphical dialogs)
+* **Operating System**: Linux (native) or **WSL (Windows Subsystem for Linux)** with GUI support (WSLg) for graphical dialogs.
+* **Required Dependencies**:
+  * `bash`
+  * `ffmpeg` & `ffprobe`
+  * `calibre` (`ebook-convert`, `ebook-meta`)
+  * `python3` & `edge-tts`
+  * `zenity` (required for graphical dialogs and progress bars)
 
 ---
 
-## Usage
+## Installation & Usage
 
-1. Clone or download the repository.
+1. Clone or download the repository:
+   git clone https://github.com/your-username/ebook-forge.git
+   cd ebook-forge
 2. Make the script executable:
    chmod +x ebook_forge.sh
 3. Run the script and select your target directory containing e-books:
    ./ebook_forge.sh
+
+---
+
+## How It Works
+
+1. **Extraction**: Uses Calibre (`ebook-convert`) to convert input files into a clean text format.
+2. **Segmentation**: Splits the text into optimal chunks to prevent API limits or processing timeouts.
+3. **Synthesis**: Leverages `edge-tts` to generate high-quality audio segments asynchronously.
+4. **Assembly**: Combines the segments via FFmpeg, injects chapter metadata, attaches cover art, and validates the output using `ffprobe`.
+
+---
+
+## Troubleshooting
+
+* **Zenity errors / No display**: If running inside a headless Linux server or a non-GUI WSL instance, ensure your display environment variable is set (`export DISPLAY=:0`) or run it in an interactive desktop session.
+* **Missing dependencies**: Ensure all tools (`ffmpeg`, `calibre`, `edge-tts`) are added to your system's `PATH`.
 
 ---
 
@@ -50,8 +73,3 @@ This tool is designed strictly for personal, educational, and offline use (conve
 
 ### Limitation of Liability
 The software is provided "as is", without warranty of any kind. The author shall not be held liable for any claims or damages arising from the use of this software.
-
----
-
-## License
-Distributed under the MIT License. See `LICENSE` for more information.
